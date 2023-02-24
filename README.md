@@ -15,3 +15,5 @@ Buscando gerar mais transparência a cerca dos estabelecimentos e empresas de Ba
 - [ ] 6. Conclusão da API - 05/05
 - [ ] 7. Criação da documentação - 26/05
 - [ ] 8. Entreda da API + APP - 19/06
+
+<br>:construction: Projeto em construção :construction:
