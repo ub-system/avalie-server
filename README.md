@@ -8,7 +8,7 @@ Buscando gerar mais transparência a cerca da qualidade dos produtos e serviços
 
 ## Objetivos
 - [x] 1. Criação do repositório - 24/02
-- [ ] 2. Criação do projeto - 24/02
+- [x] 2. Criação do projeto - 24/02
 - [ ] 3. Criação do modelo de dados ER - 24/03
 - [ ] 4. Criação da aplicação e upload para o repositório - 24/03
 - [ ] 5. Criação das classes, controllers e endpoints - 31/03
