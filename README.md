@@ -4,7 +4,7 @@ Este projeto é uma API rest que servirá como back-end para a aplicação Avali
 
 ### Avalie
 
-Buscando gerar mais transparência a cerca dos estabelecimentos e empresas de Balsas e região será desenvolvido uma aplicação mobile que permitirá aos usuários avaliarem os locais. De forma rápida e intuitiva a população terá o poder de expressar sua opinião. Este projeto será desenvolvido por meio da criação de um aplicativo em Flutter e uma API em Laravel como back-end. É uma parceria entre as disciplinas Programação para Dispositivos Móveis e Laboratório de Programação Avançada.
+Buscando gerar mais transparência a cerca da qualidade dos produtos e serviços oferecidos pelas empresas de Balsas e região será desenvolvido uma aplicação mobile que permitirá aos usuários avaliarem os locais. De forma rápida e intuitiva a população terá o poder de expressar sua opinião. Este projeto será desenvolvido através da tecnologia Flutter e o consumo de uma API em Laravel como back-end. Sendo essa, uma parceria entre as disciplinas de Programação para Dispositivos Móveis e Laboratório de Programação Avançada.
 
 ## Objetivos
 - [x] 1. Criação do repositório - 24/02
