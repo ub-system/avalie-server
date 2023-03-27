@@ -18,7 +18,7 @@ return new class extends Migration
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
             $table->foreignId('company_id')
-                ->constrained()
+                ->constrained('companies')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
             $table->integer('note');
