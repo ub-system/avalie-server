@@ -56,4 +56,12 @@ class AuthController extends Controller
 
         return response(['error'=>'A senha informada está incorreta'], 401);
     }
+
+    public function validateToke(Request $request){
+        if($token = $request->bearerToken()){
+            $user = auth('sanctum')->user();
+            $user->token = $token;
+            return new UserResource($user);
+        }
+    }
 }
