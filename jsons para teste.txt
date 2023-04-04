@@ -1,0 +1,9 @@
+método register:
+{
+    "name": "Livia FanGirl de Naruto",
+    "email": "livinha_silva@gmail.com",
+    "password": "AmoFlutterS2",
+    "password_confirmation": "AmoFlutterS2"
+}
+
+método login:
