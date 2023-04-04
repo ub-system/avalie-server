@@ -31,6 +31,6 @@ class AuthController extends Controller
         $user->token = $token;
 
         $resource = new UserResource($user);
-        return $resource->response()->json(['message' => 'Operação bem sucedida'], 201);
+        return $resource->response()->setStatusCode(201);
     }
 }
