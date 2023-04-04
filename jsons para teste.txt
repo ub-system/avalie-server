@@ -7,3 +7,7 @@ método register:
 }
 
 método login:
+{
+    "email": "livinha_silva@gmail.com",
+    "password": "AmoFlutterS2"
+}
