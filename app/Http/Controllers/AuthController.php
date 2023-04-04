@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -63,5 +64,12 @@ class AuthController extends Controller
             $user->token = $token;
             return new UserResource($user);
         }
+    }
+
+    public function logout(){
+        $user = Auth()->user();
+        $user->tokens()->delete();
+
+        return response(['message'=>'Logout realizado com sucesso']);
     }
 }
