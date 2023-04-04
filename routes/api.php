@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/validate-token', [AuthController::class, 'validateToken']);
 
     Route::post('/company', [CompanyController::class, 'store']);
+
+    Route::post('/assessment', [AssessmentController::class, 'store']);
 });
 
 Route::get('/users', [AuthController::class, 'index']);

@@ -20,7 +20,17 @@ class AssessmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'note'=>'required|numeric'
+        ]);
+
+        $assessment = assessment::create([
+            'user_id'=>auth()->user()->id,
+            'company_id'=>$request->company_id,
+            'note'=>$request->note,
+        ]);
+
+        return response()->json($assessment->load(['company', 'user']));
     }
 
     /**
