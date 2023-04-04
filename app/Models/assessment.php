@@ -9,11 +9,17 @@ class Assessment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'company_id',
+        'note',
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
 
     public function company(){
-        return $this->belongsTo(company::class);
+        return $this->belongsTo(Company::class);
     }
 }

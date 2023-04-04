@@ -10,6 +10,8 @@ Route::Post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/validate-token', [AuthController::class, 'validateToken']);
+
+    Route::post('/company', [CompanyController::class, 'store']);
 });
 
 Route::get('/users', [AuthController::class, 'index']);

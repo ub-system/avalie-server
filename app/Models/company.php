@@ -9,6 +9,12 @@ class Company extends Model
 {
     use HasFactory;
 
+    private $fillable = [
+        'name',
+        'branch',
+        'city',
+    ];
+
     public function assessments(){
         return $this->hasMany(Assessment::class);
     }
