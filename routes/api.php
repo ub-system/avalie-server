@@ -14,6 +14,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::delete('/delete', [AuthController::class, 'destroy']);
 
     Route::post('/company', [CompanyController::class, 'store']);
+    Route::get('/company', [CompanyController::class, 'index']);
 
     Route::post('/assessment', [AssessmentController::class, 'store']);
     Route::put('/assessment/{id}',[AssessmentController::class, 'update']);

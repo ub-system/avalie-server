@@ -14,7 +14,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return response()->json(['message' => 'Operação bem sucedida'], 200);
+        $companies = company::all();
+
+        return response()->json($companies->load('assessments'))->setStatusCode(200);
     }
 
     /**
