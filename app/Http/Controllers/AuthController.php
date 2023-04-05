@@ -72,4 +72,13 @@ class AuthController extends Controller
 
         return response(['message'=>'Logout realizado com sucesso'], 200);
     }
+
+    public function destroy(){
+        $id = auth()->user()->id;
+        $user = User::find($id);
+
+        $user->delete();
+
+        return response(['message'=>'Usuario excluído'], 200);
+    }
 }

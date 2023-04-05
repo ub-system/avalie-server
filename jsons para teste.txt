@@ -11,3 +11,17 @@ método login:
     "email": "livinha_silva@gmail.com",
     "password": "AmoFlutterS2"
 }
+
+login 2:
+{
+    "email": "eduardo_gomes@gmail.com",
+    "password": "phpmelhorquetudo"
+}
+
+método de cadastro de company
+{
+    "name":"Unibalsas",
+    "branch":"Educacao",
+    "city":"Balsas",
+    "note":3
+}

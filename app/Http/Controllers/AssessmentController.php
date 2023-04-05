@@ -44,9 +44,17 @@ class AssessmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, assessment $assessment)
+    public function update($id, Request $request)
     {
-        //
+        $request->validate([
+            'note'=>'required|numeric',
+        ]);
+
+        $assessment = Assessment::find($id)->update([
+            'note'=>$request->note,
+        ]);
+
+        return response()->json($assessment);
     }
 
     /**

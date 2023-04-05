@@ -40,7 +40,7 @@ class CompanyController extends Controller
             'note'=>$request->note,
         ]);
 
-        return response()->json($company->load('assessments'));
+        return response()->json($company->load('assessments'))->setStatusCode(201);
     }
 
     /**

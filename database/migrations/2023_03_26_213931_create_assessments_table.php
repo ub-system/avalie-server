@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('assessments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
+                ->nullable()
                 ->constrained()
-                ->onDelete('CASCADE')
-                ->onUpdate('CASCADE');
+                ->onUpdate('CASCADE')
+                ->onDelete('set null');
             $table->foreignId('company_id')
                 ->constrained('companies')
                 ->onDelete('CASCADE')
