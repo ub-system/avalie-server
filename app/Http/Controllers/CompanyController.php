@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assessment;
-use App\Models\company;
-use App\Models\Company as ModelsCompany;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -14,7 +13,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = company::all();
+        $companies = Company::all();
 
         return response()->json($companies->load('assessments'))->setStatusCode(200);
     }
@@ -24,6 +23,21 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
+        /** @var Company $companyAlredyExist */
+        $companyAlredyExist = Company::where('name', $request->name)
+            ->where('branch', $request->branch)
+            ->where('city', $request->city)
+            ->first();
+        if($companyAlredyExist){
+            Assessment::create([
+                'user_id' => auth()->user()->id,
+                'company_id' => $companyAlredyExist->company_id,
+                'note' => $request->note,
+            ]);
+
+            return response()->json($companyAlredyExist)->setStatusCode(200);
+        }
+
         $request->validate([
             'name'=>'required|string',
             'branch'=>'required|string',
@@ -48,7 +62,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(company $company)
+    public function show(Company $company)
     {
         //
     }
@@ -56,7 +70,7 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, company $company)
+    public function update(Request $request, Company $company)
     {
         //
     }
@@ -64,7 +78,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(company $company)
+    public function destroy(Company $company)
     {
         //
     }

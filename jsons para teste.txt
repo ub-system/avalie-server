@@ -6,6 +6,14 @@ método register:
     "password_confirmation": "AmoFlutterS2"
 }
 
+register 2:
+{
+    "name": "Eduardo",
+    "email": "eduardo_gomes@gmail.com",
+    "password": "phpmelhorquetudo",
+    "password_confirmation": "phpmelhorquetudo"
+}
+
 método login:
 {
     "email": "livinha_silva@gmail.com",
