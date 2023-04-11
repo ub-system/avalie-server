@@ -18,6 +18,13 @@ class CompanyController extends Controller
         return response()->json($companies->load('assessments'))->setStatusCode(200);
     }
 
+    public function showByName($name)
+    {
+        $company = Company::where('name', $name)->first();
+
+        return response()->json($company->load('assessments'))->setStatusCode(200);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
