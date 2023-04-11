@@ -28,10 +28,24 @@ class CompanyController extends Controller
             ->where('branch', $request->branch)
             ->where('city', $request->city)
             ->first();
+
+        if($companyAlredyExist){
+             /** @var Assessment $assessmentAlredyExist */
+            $assessmentAlredyExist = Assessment::where('company_id', $companyAlredyExist->id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+
+            if($assessmentAlredyExist){
+                $assessmentAlredyExist->update(['note'=>$request->note]);
+
+                return response()->json($assessmentAlredyExist)->setStatusCode(200);
+            }
+        }
+
         if($companyAlredyExist){
             Assessment::create([
                 'user_id' => auth()->user()->id,
-                'company_id' => $companyAlredyExist->company_id,
+                'company_id' => $companyAlredyExist->id,
                 'note' => $request->note,
             ]);
 
@@ -50,7 +64,7 @@ class CompanyController extends Controller
             'city'=>$request->city,
         ]);
 
-        $assessment = Assessment::create([
+        Assessment::create([
             'user_id'=>auth()->user()->id,
             'company_id'=>$company->id,
             'note'=>$request->note,
