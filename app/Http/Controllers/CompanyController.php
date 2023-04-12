@@ -20,9 +20,9 @@ class CompanyController extends Controller
 
     public function showByName($name)
     {
-        $company = Company::where('name', $name)->first();
+        $companies = Company::where('name', 'like', $name."%")->get();
 
-        return response()->json($company->load('assessments'))->setStatusCode(200);
+        return response()->json($companies)->setStatusCode(200);
     }
 
     /**
@@ -47,9 +47,7 @@ class CompanyController extends Controller
 
                 return response()->json($assessmentAlredyExist)->setStatusCode(200);
             }
-        }
 
-        if($companyAlredyExist){
             Assessment::create([
                 'user_id' => auth()->user()->id,
                 'company_id' => $companyAlredyExist->id,
