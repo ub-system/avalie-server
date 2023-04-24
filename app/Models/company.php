@@ -18,4 +18,13 @@ class Company extends Model
     public function assessments(){
         return $this->hasMany(Assessment::class);
     }
+
+    public function getAll($filter = null)
+    {
+        if (!$filter) {
+            return $this->all();
+        }
+
+        return $this->where('name', 'LIKE', "$filter%")->get();
+    }
 }

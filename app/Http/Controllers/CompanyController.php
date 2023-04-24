@@ -2,27 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CompanyResource;
 use App\Models\Assessment;
 use App\Models\Company;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $companies = Company::all();
+    private $company;
 
-        return response()->json($companies->load('assessments'))->setStatusCode(200);
+    /**
+     * Class constructor
+     *
+     * @param Company $company dependence injection
+     */
+    public function __construct(Company $company)
+    {
+        $this->company = $company;
     }
 
-    public function showByName($name)
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request the request fom page
+     *
+     * @return Collection
+     */
+    public function index(Request $request)
     {
-        $companies = Company::where('name', 'like', $name."%")->get();
 
-        return response()->json($companies)->setStatusCode(200);
+        return CompanyResource::collection(
+            $this->company->getAll($request->filter)
+        );
     }
 
     /**
@@ -54,7 +66,9 @@ class CompanyController extends Controller
                 'note' => $request->note,
             ]);
 
-            return response()->json($companyAlredyExist)->setStatusCode(200);
+            $resource = new CompanyResource($companyAlredyExist);
+
+            return  $resource->response()->setStatusCode(200);
         }
 
         $request->validate([
@@ -75,7 +89,9 @@ class CompanyController extends Controller
             'note'=>$request->note,
         ]);
 
-        return response()->json($company->load('assessments'))->setStatusCode(201);
+        $resource = new CompanyResource($company);
+
+        return $resource->response()->setStatusCode(201);
     }
 
     /**
