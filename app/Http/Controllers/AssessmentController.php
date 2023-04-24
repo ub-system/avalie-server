@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AssessmentResource;
 use App\Models\assessment;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,9 @@ class AssessmentController extends Controller
             'note'=>$request->note,
         ]);
 
-        return response()->json($assessment->load(['company', 'user']));
+        $resource = new AssessmentResource($assessment);
+
+        return $resource->response()->setStatusCode(201);
     }
 
     /**
@@ -44,17 +47,17 @@ class AssessmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
         $request->validate([
             'note'=>'required|numeric',
         ]);
 
-        $assessment = Assessment::find($id)->update([
+        $assessment = Assessment::find($request->id)->update([
             'note'=>$request->note,
         ]);
 
-        return response()->json($assessment);
+        return response()->json($assessment)->setStatusCode(201);
     }
 
     /**
