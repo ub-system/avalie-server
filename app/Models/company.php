@@ -22,9 +22,9 @@ class Company extends Model
     public function getAll($filter = null)
     {
         if (!$filter) {
-            return $this->all();
+            return $this->paginate(5);
         }
 
-        return $this->where('name', 'LIKE', "$filter%")->get();
+        return $this->where('name', 'LIKE', "$filter%")->paginate(5);
     }
 }
