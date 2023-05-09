@@ -2,34 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AssessmentRequest;
 use App\Http\Resources\AssessmentResource;
-use App\Models\assessment;
-use Illuminate\Http\Request;
+use App\Models\Assessment;
 
 class AssessmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    private $assessment;
 
+    public function __construct(Assessment $assessment)
+    {
+        $this->assessment = $assessment;
+    }
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AssessmentRequest $request)
     {
-        $request->validate([
-            'note'=>'required|numeric'
-        ]);
-
-        $assessment = assessment::create([
-            'user_id'=>auth()->user()->id,
-            'company_id'=>$request->company_id,
-            'note'=>$request->note,
-        ]);
+        $assessment = $this->assessment->create($request->all());
 
         $resource = new AssessmentResource($assessment);
 
@@ -37,34 +27,14 @@ class AssessmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(assessment $assessment)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
-    {
-        $request->validate([
-            'note'=>'required|numeric',
-        ]);
+    // public function update(AssessmentRequest $request)
+    // {
+    //     $assessment = Assessment::find($request->id)->update([
+    //         'note'=>$request->note,
+    //     ]);
 
-        $assessment = Assessment::find($request->id)->update([
-            'note'=>$request->note,
-        ]);
-
-        return response()->json($assessment)->setStatusCode(201);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(assessment $assessment)
-    {
-        //
-    }
+    //     return response()->json($assessment)->setStatusCode(201);
+    // }
 }
