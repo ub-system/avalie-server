@@ -11,7 +11,7 @@ Route::Post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/validate-token', [AuthController::class, 'validateToken']);
-    Route::delete('/delete', [AuthController::class, 'destroy']);
+    //Route::delete('/delete', [AuthController::class, 'destroy']);
 
     Route::post('/company', [CompanyController::class, 'store']);
     Route::get('/company', [CompanyController::class, 'index']);
@@ -19,7 +19,3 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/assessment', [AssessmentController::class, 'store']);
     //Route::put('/assessment',[AssessmentController::class, 'update']);
 });
-
-// Route::get('/users', [AuthController::class, 'index']);
-
-// Route::apiResource('companies', CompanyController::class);
