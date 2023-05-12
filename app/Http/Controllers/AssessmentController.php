@@ -19,7 +19,7 @@ class AssessmentController extends Controller
      */
     public function store(AssessmentRequest $request)
     {
-        $assessment = $this->assessment->create($request->all());
+        $assessment = $this->assessment->updateOrCreate($request->all());
 
         $resource = new AssessmentResource($assessment);
 

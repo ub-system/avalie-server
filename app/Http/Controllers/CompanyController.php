@@ -36,7 +36,6 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-
         return CompanyResource::collection(
             $this->company->getAll($request->filter)
         );
