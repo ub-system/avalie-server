@@ -25,16 +25,4 @@ class AssessmentController extends Controller
 
         return $resource->response()->setStatusCode(201);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(AssessmentRequest $request)
-    // {
-    //     $assessment = Assessment::find($request->id)->update([
-    //         'note'=>$request->note,
-    //     ]);
-
-    //     return response()->json($assessment)->setStatusCode(201);
-    // }
 }
