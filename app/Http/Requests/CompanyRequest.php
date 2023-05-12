@@ -25,6 +25,7 @@ class CompanyRequest extends FormRequest
             'name'=>'required|string',
             'branch'=>'required|string',
             'city'=>'required|string',
+            'note'=>'required',
         ];
     }
 }

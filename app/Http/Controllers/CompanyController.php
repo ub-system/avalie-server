@@ -9,6 +9,7 @@ use App\Models\Assessment;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -54,20 +55,8 @@ class CompanyController extends Controller
             ->first();
 
         if($companyAlredyExist){
-             /** @var Assessment $assessmentAlredyExist */
-            // $assessmentAlredyExist = $this->assessment
-            //     ->where('company_id', $companyAlredyExist->id)
-            //     ->where('user_id', auth()->user()->id)
-            //     ->first();
-
-            // if($assessmentAlredyExist){
-            //     $assessmentAlredyExist->update(['note'=>$request->note]);
-
-            //     return response()->json($assessmentAlredyExist)->setStatusCode(200);
-            // }
-
             $assessmentRequest = new AssessmentRequest([
-                'user_id' => auth()->user()->id,
+                'user_id' =>auth()->user()->id,
                 'company_id' => $companyAlredyExist->id,
                 'note' => $request->note,
             ]);
