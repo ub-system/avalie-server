@@ -65,7 +65,7 @@ class AuthController extends Controller
     }
 
     public function destroy(){
-        $id = auth()->user()->id;
+        $id = Auth()->user()->id;
         $user = User::find($id);
 
         $user->delete();

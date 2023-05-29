@@ -22,7 +22,6 @@ class AssessmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>'required',
             'company_id'=>'required',
             'note'=>'required|numeric',
         ];

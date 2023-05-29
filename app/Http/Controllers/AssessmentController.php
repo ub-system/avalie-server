@@ -19,6 +19,8 @@ class AssessmentController extends Controller
      */
     public function store(AssessmentRequest $request)
     {
+        $request['user_id'] = auth()->user()->id;
+
         $assessment = $this->assessment->updateOrCreate($request->all());
 
         $resource = new AssessmentResource($assessment);
