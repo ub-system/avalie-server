@@ -21,6 +21,19 @@ class AssessmentController extends Controller
      */
     public function store(AssessmentRequest $request)
     {
+        $assessmentAlreadyExist = $this->assessment
+            ->where('user_id', $request->user_id)
+            ->where('company_id', $request->company_id)
+            ->first();
+
+        if($assessmentAlreadyExist != null){
+            $assessmentAlreadyExist->update($request->all());
+
+            $resource = new AssessmentResource($assessmentAlreadyExist);
+
+            return $resource->response()->setStatusCode(201);
+        }
+
         $assessment = $this->assessment->create([
             'user_id'=>$request->user_id,
             'company_id'=>$request->company_id,

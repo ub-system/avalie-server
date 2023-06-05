@@ -52,41 +52,13 @@ class CompanyController extends Controller
             ->where('city', $request->city)
             ->first();
 
-        if($companyAlredyExist){
-             /** @var Assessment $assessmentAlredyExist */
-            $assessmentAlredyExist = $this->assessment
-                ->where('company_id', $companyAlredyExist->id)
-                ->where('user_id', auth()->user()->id)
-                ->first();
-
-            if($assessmentAlredyExist){
-                $assessmentAlredyExist->update(['note'=>$request->note]);
-
-                return response()->json($assessmentAlredyExist)->setStatusCode(200);
-            }
-
-            $this->assessment->create([
-                'user_id' => auth()->user()->id,
-                'company_id' => $companyAlredyExist->id,
-                'note' => $request->note,
-            ]);
-
+        if($companyAlredyExist != null){
             $resource = new CompanyResource($companyAlredyExist);
 
             return  $resource->response()->setStatusCode(200);
         }
 
-        $company = $this->company->create([
-            'name'=>$request->name,
-            'branch'=>$request->branch,
-            'city'=>$request->city,
-        ]);
-
-        $this->assessment->create([
-            'user_id'=>auth()->user()->id,
-            'company_id'=>$company->id,
-            'note'=>$request->note,
-        ]);
+        $company = $this->company->create($request->all());
 
         $resource = new CompanyResource($company);
 
