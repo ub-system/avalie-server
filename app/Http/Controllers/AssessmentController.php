@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\AssessmentResource;
-use App\Models\assessment;
+use App\Models\Assessment;
 use Illuminate\Http\Request;
 
 class AssessmentController extends Controller
@@ -25,7 +25,7 @@ class AssessmentController extends Controller
             'note'=>'required|numeric'
         ]);
 
-        $assessment = assessment::create([
+        $assessment = Assessment::create([
             'user_id'=>auth()->user()->id,
             'company_id'=>$request->company_id,
             'note'=>$request->note,
@@ -39,7 +39,7 @@ class AssessmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(assessment $assessment)
+    public function show(Assessment $assessment)
     {
         //
     }
@@ -63,7 +63,7 @@ class AssessmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(assessment $assessment)
+    public function destroy(Assessment $assessment)
     {
         //
     }

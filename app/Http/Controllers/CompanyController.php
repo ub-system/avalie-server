@@ -29,6 +29,14 @@ class CompanyController extends Controller
      *
      * @return Collection
      */
+    /**
+     * @OA\Get(
+     *     path="/company",
+     *     summary="Lista de empresas",
+     *     tags={"Companies"},
+     *     @OA\Response(response="200", description="Sucesso"),
+     * )
+    */
     public function index(Request $request)
     {
 
