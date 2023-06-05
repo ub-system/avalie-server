@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Assessment;
 use App\Models\Company;
@@ -42,19 +43,21 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
         /** @var Company $companyAlredyExist */
-        $companyAlredyExist = Company::where('name', $request->name)
+        $companyAlredyExist = $this->company
+            ->where('name', $request->name)
             ->where('branch', $request->branch)
             ->where('city', $request->city)
             ->first();
 
         if($companyAlredyExist){
              /** @var Assessment $assessmentAlredyExist */
-            $assessmentAlredyExist = Assessment::where('company_id', $companyAlredyExist->id)
-            ->where('user_id', auth()->user()->id)
-            ->first();
+            $assessmentAlredyExist = $this->assessment
+                ->where('company_id', $companyAlredyExist->id)
+                ->where('user_id', auth()->user()->id)
+                ->first();
 
             if($assessmentAlredyExist){
                 $assessmentAlredyExist->update(['note'=>$request->note]);
@@ -62,7 +65,7 @@ class CompanyController extends Controller
                 return response()->json($assessmentAlredyExist)->setStatusCode(200);
             }
 
-            Assessment::create([
+            $this->assessment->create([
                 'user_id' => auth()->user()->id,
                 'company_id' => $companyAlredyExist->id,
                 'note' => $request->note,
@@ -73,19 +76,13 @@ class CompanyController extends Controller
             return  $resource->response()->setStatusCode(200);
         }
 
-        $request->validate([
-            'name'=>'required|string',
-            'branch'=>'required|string',
-            'city'=>'required|string',
-        ]);
-
-        $company = Company::create([
+        $company = $this->company->create([
             'name'=>$request->name,
             'branch'=>$request->branch,
             'city'=>$request->city,
         ]);
 
-        Assessment::create([
+        $this->assessment->create([
             'user_id'=>auth()->user()->id,
             'company_id'=>$company->id,
             'note'=>$request->note,

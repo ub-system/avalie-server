@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,14 +15,7 @@ class AuthController extends Controller
         return UserResource::collection(User::all());
     }
 
-    public function register(Request $request){
-        $request -> validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'is_admin' => 'nullable|boolean',
-            'password' => 'required|string|confirmed',
-        ]);
-
+    public function register(RegisterRequest $request){
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -35,12 +30,7 @@ class AuthController extends Controller
         return $resource->response()->setStatusCode(201);
     }
 
-    public function login(Request $request){
-        $request->validate([
-            "email"=>"required|email",
-            "password"=>"required|string",
-        ]);
-
+    public function login(LoginRequest $request){
         $user = User::where('email', $request->email)->first();
 
         if(!$user){
@@ -73,12 +63,12 @@ class AuthController extends Controller
         return response(['message'=>'Logout realizado com sucesso'], 200);
     }
 
-    public function destroy(){
-        $id = auth()->user()->id;
-        $user = User::find($id);
+    // public function destroy(){
+    //     $id = auth()->user()->id;
+    //     $user = User::find($id);
 
-        $user->delete();
+    //     $user->delete();
 
-        return response(['message'=>'Usuario excluído'], 200);
-    }
+    //     return response(['message'=>'Usuario excluído'], 200);
+    // }
 }

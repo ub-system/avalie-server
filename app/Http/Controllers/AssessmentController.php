@@ -2,31 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AssessmentRequest;
 use App\Http\Resources\AssessmentResource;
 use App\Models\assessment;
 use Illuminate\Http\Request;
 
 class AssessmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private $assessment;
+
+    public function __construct(Assessment $assessment)
     {
-        //
+        $this->assessment = $assessment;
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AssessmentRequest $request)
     {
-        $request->validate([
-            'note'=>'required|numeric'
-        ]);
-
-        $assessment = assessment::create([
-            'user_id'=>auth()->user()->id,
+        $assessment = $this->assessment->create([
+            'user_id'=>$request->user_id,
             'company_id'=>$request->company_id,
             'note'=>$request->note,
         ]);
@@ -37,34 +33,23 @@ class AssessmentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(assessment $assessment)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(AssessmentRequest $request)
     {
-        $request->validate([
-            'note'=>'required|numeric',
-        ]);
+        $assessment = $this->assessment
+            ->where('user_id', $request->user_id)
+            ->where('company_id', $request->company_id)
+            ->first();
 
-        $assessment = Assessment::find($request->id)->update([
-            'note'=>$request->note,
-        ]);
+        if($assessment != null){
+            $assessment->update($request->all());
 
-        return response()->json($assessment)->setStatusCode(201);
-    }
+            $resource = new AssessmentResource($assessment);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(assessment $assessment)
-    {
-        //
+            return $resource->response()->setStatusCode(200);
+        }
+
+        return response(['error'=>'Não foi possível atualizar a avaliação'], 400);
     }
 }
