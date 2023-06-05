@@ -11,15 +11,17 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
     private $company;
+    private $assessment;
 
     /**
      * Class constructor
      *
      * @param Company $company dependence injection
      */
-    public function __construct(Company $company)
+    public function __construct(Company $company, Assessment $assessment)
     {
         $this->company = $company;
+        $this->assessment = $assessment;
     }
 
     /**
@@ -92,29 +94,5 @@ class CompanyController extends Controller
         $resource = new CompanyResource($company);
 
         return $resource->response()->setStatusCode(201);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Company $company)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Company $company)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Company $company)
-    {
-        //
     }
 }
