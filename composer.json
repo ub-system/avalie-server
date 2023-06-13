@@ -10,7 +10,7 @@
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
-        "rakutentech/laravel-request-docs": "^2.18",
+        "rakutentech/laravel-request-docs": "^2.16",
         "symfony/form": "^6.2"
     },
     "require-dev": {
