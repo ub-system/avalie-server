@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
-use App\Models\Assessment;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -12,17 +11,15 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
     private $company;
-    private $assessment;
 
     /**
      * Class constructor
      *
      * @param Company $company dependence injection
      */
-    public function __construct(Company $company, Assessment $assessment)
+    public function __construct(Company $company)
     {
         $this->company = $company;
-        $this->assessment = $assessment;
     }
 
     /**
@@ -52,7 +49,7 @@ class CompanyController extends Controller
             ->where('city', $request->city)
             ->first();
 
-        if($companyAlredyExist != null){
+        if($companyAlredyExist != null) {
             $resource = new CompanyResource($companyAlredyExist);
 
             return  $resource->response()->setStatusCode(200);

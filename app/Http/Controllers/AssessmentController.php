@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AssessmentRequest;
 use App\Http\Resources\AssessmentResource;
-use App\Models\assessment;
+use App\Models\Assessment;
 use Illuminate\Http\Request;
 
 class AssessmentController extends Controller
@@ -26,7 +26,7 @@ class AssessmentController extends Controller
             ->where('company_id', $request->company_id)
             ->first();
 
-        if($assessmentAlreadyExist != null){
+        if($assessmentAlreadyExist != null) {
             $assessmentAlreadyExist->update($request->all());
 
             $resource = new AssessmentResource($assessmentAlreadyExist);
@@ -55,7 +55,7 @@ class AssessmentController extends Controller
             ->where('company_id', $request->company_id)
             ->first();
 
-        if($assessment != null){
+        if($assessment != null) {
             $assessment->update($request->all());
 
             $resource = new AssessmentResource($assessment);

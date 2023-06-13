@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return UserResource::collection(User::all());
     }
 
-    public function register(RegisterRequest $request){
+    public function register(RegisterRequest $request)
+    {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -30,14 +32,15 @@ class AuthController extends Controller
         return $resource->response()->setStatusCode(201);
     }
 
-    public function login(LoginRequest $request){
+    public function login(LoginRequest $request)
+    {
         $user = User::where('email', $request->email)->first();
 
-        if(!$user){
+        if(!$user) {
             return response(['error'=>'O e-mail informado não está cadastrado'], 401);
         }
 
-        if($user && Hash::check($request->password, $user->password)){
+        if($user && Hash::check($request->password, $user->password)) {
             $token = $user->createToken('auth-token')->plainTextToken;
             $user->token = $token;
 
@@ -47,15 +50,17 @@ class AuthController extends Controller
         return response(['error'=>'A senha informada está incorreta'], 401);
     }
 
-    public function validateToke(Request $request){
-        if($token = $request->bearerToken()){
+    public function validateToke(Request $request)
+    {
+        if($token = $request->bearerToken()) {
             $user = auth('sanctum')->user();
             $user->token = $token;
             return new UserResource($user);
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         /** @var User $user */
         $user = Auth()->user();
         $user->tokens()->delete();
