@@ -19,6 +19,8 @@ class CompanyResource extends JsonResource
             'name'=>$this->name,
             'branch'=>$this->branch,
             'city'=>$this->city,
+            'created_at' => $this->created_at,
+            'assessments' => AssessmentResource::collection($this->assessments),
         ];
     }
 }

@@ -19,6 +19,7 @@ class AssessmentResource extends JsonResource
             'user_id'=>$this->user_id,
             'company_id'=>$this->company_id,
             'note'=>$this->note,
+            'created_at' => $this->created_at,
         ];
     }
 }
